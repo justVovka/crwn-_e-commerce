@@ -1,5 +1,6 @@
-import './menu-item.styles.scss';
 import { withRouter } from 'react-router-dom';
+
+import './menu-item.styles.scss';
 
 // history from hoc withRouter
 const MenuItem = ({ title, imageUrl, size, linkUrl, history }) => (
