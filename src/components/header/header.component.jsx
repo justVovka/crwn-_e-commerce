@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
@@ -8,13 +8,12 @@ import {
 } from './header.styles';
 import CartDropdownContainer from '../cart-dropdown/cart-dropdown.container';
 import CurrentUserContext from '../../contexts/current-user/context-user.context';
-import CartContext from '../../contexts/cart/cart.context';
+import { CartContext } from '../../providers/cart/cart.provider';
 
 
 const Header = () => {
   const currentUser = useContext(CurrentUserContext);
-  const [hidden, setHidden] = useState(true);
-  const toggleHidden = () => setHidden(!hidden);
+  const { hidden } = useContext(CartContext);
 
   return (
     <HeaderContainer>
@@ -29,13 +28,7 @@ const Header = () => {
             <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink> :
             <OptionLink to='/sign-in'>SIGN IN</OptionLink>
         }
-        {/* Помещаем в контекст то, что я определил внутри компонента */}
-        <CartContext.Provider value={{
-          hidden,
-          toggleHidden
-        }}>
           <CartIcon />
-        </CartContext.Provider>
       </OptionsContainer>
       {
         hidden ? null :
